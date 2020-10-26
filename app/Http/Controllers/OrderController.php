@@ -64,9 +64,15 @@ class OrderController extends Controller
     }
     public function accept_order($order_code){
         $order_cod = Order::where('order_code',$order_code)->first();
+        $order_cp = $order_cod->order_couponcode;
         if($order_cod->order_status==0 || $order_cod->order_status==5){
             return redirect()->back()->with('errmsg','Đơn hàng đã bị hủy');
         }elseif($order_cod->order_status==1){
+            if($order_cp!='NULL'){
+                $coupon = Coupon::where('coupon_value',$order_cp)->first();
+                $cp_time_after = $coupon->coupon_time-1;
+                $coupon->update(['coupon_time' => $cp_time_after]);
+            }
             $order_cod->update(['order_status'=>2]);
             return redirect()->back()->with('message','Đã xác nhận đơn hàng');
         }elseif($order_cod->order_status==2){

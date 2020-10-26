@@ -94,7 +94,16 @@ class CartController extends Controller
     public function apply_coupon(Request $request){
         $data = $request->all();
         $coupon = Coupon::where('coupon_value',$data['coupon'])->first();
-        if($coupon){
+        if($coupon==NULL){
+            if($data['coupon']==NULL){
+                return redirect()->back()->with('errmsg','Chưa nhập mã giảm giá');
+            }else{
+                return redirect()->back()->with('errmsg','Mã giảm giá "'.$data['coupon'].'" không tồn tại');
+            }
+        }else{
+            if($coupon->coupon_time<1){
+            return redirect()->back()->with('errmsg','Mã giảm giá đã hết lượt sử dụng!');
+        }else{
             $count_coupon = $coupon->count();
             if($count_coupon>0){
                 $coupon_session = Session::get('coupon');
@@ -119,13 +128,10 @@ class CartController extends Controller
                     Session::save();
                     return redirect()->back()->with('message','Đã áp dụng mã giảm giá: "'.$coupon->coupon_value.'"');
             }
-        }else{
-            if($data['coupon']==NULL){
-                return redirect()->back()->with('errmsg','Chưa nhập mã giảm giá');
-            }else{
-                return redirect()->back()->with('errmsg','Mã giảm giá "'.$data['coupon'].'" không tồn tại');
-            }
+        
         }
+        }
+        
     }
     public function clear_all(){
         $cart = Session::get('cart');
