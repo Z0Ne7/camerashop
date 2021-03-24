@@ -9,7 +9,7 @@
     @foreach($lastest_product as $key => $product)
         @php
             $i++;
-        @endphp                       
+        @endphp
     <div class="col-sm-3">
         <div class="product-image-wrapper">
             <div class="single-products">
@@ -19,7 +19,7 @@
                     <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
                     <input type="hidden" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
                     <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
-                    <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                    <input type="hidden" value="{{$product->product_price - ($product->product_price * $product->product_discount / 100)}}" class="cart_product_price_{{$product->product_id}}">
                     <input type="hidden" value="{{$product->product_stock}}" class="cart_product_stock_{{$product->product_id}}">
                     <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                     <a href="{{URL::to('/product-details/'.$product->product_id)}}">
@@ -31,7 +31,7 @@
                         <i class="pull-right out-stock"><i class="fa fa-times"></i>Hết hàng</i>
                         @endif
                     </p>
-                    <h2>{{number_format($product->product_price,'0',',','.').' '.'Đ'}}</h2>
+                    <h2>{{number_format($product->product_price - ($product->product_price * $product->product_discount / 100),'0',',','.').' '.'Đ'}}</h2>
                     <p>{{$product->product_name}}</p>
                     </a>
                         @if($product->product_stock>0)
@@ -58,10 +58,10 @@
         $i=0;
     @endphp
     @foreach($all_product_joined as $key => $product)
-    @if($product->category_id==$all_cate->category_id)   
+    @if($product->category_id==$all_cate->category_id)
     @php
         $i++;
-    @endphp                    
+    @endphp
         <div class="col-sm-3">
             <div class="product-image-wrapper">
                 <div class="single-products">
@@ -71,7 +71,7 @@
                         <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
-                        <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                        <input type="hidden" value="{{$product->product_price - ($product->product_price * $product->product_discount / 100)}}" class="cart_product_price_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_stock}}" class="cart_product_stock_{{$product->product_id}}">
                         <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                         <a href="{{URL::to('/product-details/'.$product->product_id)}}">
@@ -83,7 +83,7 @@
                             <i class="pull-right out-stock"><i class="fa fa-times"></i>Hết hàng</i>
                             @endif
                         </p>
-                        <h2>{{number_format($product->product_price,'0',',','.').' '.'Đ'}}</h2>
+                        <h2>{{number_format($product->product_price - ($product->product_price * $product->product_discount / 100),'0',',','.').' '.'Đ'}}</h2>
                         <p>{{$product->product_name}}</p>
                         </a>
                             @if($product->product_stock>0)
@@ -115,10 +115,10 @@
         $i=0;
     @endphp
     @foreach($all_product_joined as $key => $product)
-    @if($product->brand_id==$all_brand->brand_id)   
+    @if($product->brand_id==$all_brand->brand_id)
     @php
         $i++;
-    @endphp                    
+    @endphp
         <div class="col-sm-3">
             <div class="product-image-wrapper">
                 <div class="single-products">
@@ -128,7 +128,7 @@
                         <input type="hidden" value="{{$product->product_id}}" class="cart_product_id_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_name}}" class="cart_product_name_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_image}}" class="cart_product_image_{{$product->product_id}}">
-                        <input type="hidden" value="{{$product->product_price}}" class="cart_product_price_{{$product->product_id}}">
+                        <input type="hidden" value="{{$product->product_price - ($product->product_price * $product->product_discount / 100)}}" class="cart_product_price_{{$product->product_id}}">
                         <input type="hidden" value="{{$product->product_stock}}" class="cart_product_stock_{{$product->product_id}}">
                         <input type="hidden" value="1" class="cart_product_qty_{{$product->product_id}}">
                         <a href="{{URL::to('/product-details/'.$product->product_id)}}">
@@ -140,7 +140,7 @@
                             <i class="pull-right out-stock"><i class="fa fa-times"></i>Hết hàng</i>
                             @endif
                         </p>
-                        <h2>{{number_format($product->product_price,'0',',','.').' '.'Đ'}}</h2>
+                        <h2>{{number_format($product->product_price - ($product->product_price * $product->product_discount / 100),'0',',','.').' '.'Đ'}}</h2>
                         <p>{{$product->product_name}}</p>
                         </a>
                         @if($product->product_stock>0)
@@ -165,4 +165,4 @@
     @endforeach
 </div>
 @endforeach
-@endsection                
+@endsection

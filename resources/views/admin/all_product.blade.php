@@ -33,7 +33,8 @@
             <th>STT</th>
             <th>Hình ảnh</th>
             <th>Tên sản phẩm</th>
-            <th>Giá</th>
+            <th>Giá sản phẩm</th>
+            <th>Giảm giá</th>
             <th>Kho hàng</th>
             <th>Đã bán</th>
             <th>Danh mục</th>
@@ -49,12 +50,12 @@
             <td><img src="public/uploads/product/{{($pro->product_image)}}" class="imgpro"></td>
             <td>{{($pro->product_name)}}</td>
             <td>{{number_format($pro->product_price,'0',',','.').' '.'Đ'}}</td>
+            <td>{{($pro->product_discount).' '.'%'}}</td>
+
             <td>
-              @if($pro->product_stock==0)
-              Hết hàng
-              @else
+
               {{($pro->product_stock)}}
-              @endif
+
             </td>
             <td>
               @if($pro->product_sold==0)
