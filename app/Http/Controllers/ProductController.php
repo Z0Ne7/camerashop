@@ -43,6 +43,7 @@ class ProductController extends Controller
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_stock'] = $request->product_stock;
+        $data['product_discount'] = $request->product_discount;
         $data['product_price'] = $request->product_price;
         $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;
@@ -93,6 +94,7 @@ class ProductController extends Controller
         $data = array();
         $data['product_name'] = $request->product_name;
         $data['product_stock'] = $request->product_stock;
+        $data['product_discount'] = $request->product_discount;
         $data['product_price'] = $request->product_price;
         $data['product_desc'] = $request->product_desc;
         $data['product_content'] = $request->product_content;

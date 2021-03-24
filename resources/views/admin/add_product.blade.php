@@ -24,15 +24,10 @@
                     <span class="label-input100">Số lượng</span>
                     <input class="input100" type="number" name="product_stock">
                 </div>
-                <div class="wrap-input100 bg1">
+                <div class="wrap-input100 bg1 rs1-wrap-input100">
                     <span class="label-input100">Hình ảnh</span>
                     <input type="file" name="product_image" class="input100">
                 </div>
-                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Chưa nhập giá sản phẩm">
-                    <span class="label-input100">Giá tiền</span>
-                    <input class="input100" type="number" name="product_price">
-                </div>
-
                 <div class="wrap-input100 input100-select bg1 rs1-wrap-input100">
                     <span class="label-input100">Trạng thái</span>
                     <div>
@@ -44,7 +39,14 @@
                         <div class="dropDownSelect2"></div>
                     </div>
                 </div>
-
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Chưa nhập giá sản phẩm">
+                    <span class="label-input100">Giá tiền</span>
+                    <input class="input100" type="number" min="1000" name="product_price">
+                </div>
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate = "Chưa nhập khuyến mại">
+                    <span class="label-input100">Khuyến mại</span>
+                    <input class="input100" type="number" min="0" max="100" name="product_discount">
+                </div>
                 <div class="wrap-input100 input100-select bg1 rs1-wrap-input100">
                     <span class="label-input100">Danh mục</span>
                     <div>
