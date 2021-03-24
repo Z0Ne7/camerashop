@@ -119,7 +119,6 @@ class CheckoutController extends Controller
     public function confirm_order(Request $request)
     {
         $Orders = new Order;
-        $Products = new Product;
         $OrderDetails = new OrderDetails;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $data = $request->all();
@@ -141,6 +140,7 @@ class CheckoutController extends Controller
         $Orders->save();
         if (Session::get('cart')) {
             foreach (Session::get('cart') as $cart) {
+                $Products = Product::where('product_id', $cart['product_id'])->first();
                 $new_stock = $Products->product_stock - $cart['product_qty'];
                 if ($new_stock < 0) {
                     $new_stock = 0;
