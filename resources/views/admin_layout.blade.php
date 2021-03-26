@@ -287,6 +287,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script>
         $(document).ready(function() {
+            getStatsOnLoad()
             //BOX BUTTON SHOW AND CLOSE
             jQuery('.small-graph-box').hover(function() {
                 jQuery(this).find('.box-button').fadeIn('fast');
@@ -383,6 +384,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         });
+        function getStatsOnLoad (){
+            var _token = $("input[name='_token']").val();
+            $.ajax({
+                url: "{{url('/get-stats-on-load')}}",
+                method: "POST",
+                dataType: "JSON",
+                data: {
+                    _token:_token,
+                },
+                success: function(data) {
+                    chart.setData(data);
+                }
+            })
+        }
+        $(".dashboard-filter").change(function() {
+            var dashboardValue = $(this).val();
+            var _token = $("input[name='_token']").val();
+            $.ajax({
+                url: "{{url('/dashboard-filter')}}",
+                method: "POST",
+                dataType: "JSON",
+                data: {
+                    dashboardValue: dashboardValue,
+                    _token: _token
+                },
+                success: function(data) {
+                    chart.setData(data);
+                }
+            })
+        })
         $("#btn-dashboard-filter").click(function() {
             var _token = $("input[name='_token']").val();
             var dateFrom = $("#datepicker-from").val();
@@ -397,36 +428,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     _token: _token
                 },
                 success: function(data) {
-                    // chart.setData(data);
+                    chart.setData(data);
                 }
             })
         });
-        new Morris.Area({
+        var chart = new Morris.Bar({
             element: 'chart1',
-            data: [{
-                    year: '2008',
-                    value: 20
-                },
-                {
-                    year: '2009',
-                    value: 10
-                },
-                {
-                    year: '2010',
-                    value: 5
-                },
-                {
-                    year: '2011',
-                    value: 5
-                },
-                {
-                    year: '2012',
-                    value: 20
-                }
-            ],
-            xkey: 'year',
-            ykeys: ['value'],
-            labels: ['Value']
+            barColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
+            parseTime: false,
+            hideHover: 'auto',
+            data: [],
+            xkey: 'period',
+            ykeys: ['order', 'sales', 'quantity'],
+            labels: ['Đơn hàng', 'Doanh số', 'Số lượng']
         });
     </script>
     <!-- calendar -->
