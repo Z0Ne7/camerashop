@@ -1,6 +1,41 @@
 @extends('admin_layout')
 @section('admin_content')
 <section class="wrapper">
+    <div class="market-updates">
+        <div class="container-fluid">
+            <style>
+                p.title-stats {
+                    text-align: center;
+                    font-size: 40px;
+                    color: #436744;
+                }
+
+                #btn-dashboard-filter {
+                    margin-top: 5px;
+                }
+
+            </style>
+            <div class="row">
+                <p class="title-stats">Thống kê</p>
+                <form autocomplete="off">
+                    @csrf
+                    <div class="col-md-2">
+                        <p>Từ ngày: <input type="text" id="datepicker-from" class="form-control"></p>
+                        <input type="button" id="btn-dashboard-filter" class="btn btn-primary btn-sm" value="Lọc">
+                    </div>
+                    <div class="col-md-2">
+                        <p>Đến ngày: <input type="text" id="datepicker-to" class="form-control"></p>
+                    </div>
+                </form>
+                <div class="col-md-12">
+                    <div id="chart1" style="height: 300px;"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- <section class="wrapper">
   <div class="market-updates">
       <div class="col-md-4 market-update-gd">
         <div class="market-update-block clr-block-3">
@@ -123,5 +158,5 @@
               </table>
             </div>
           </div>
-</section>
+</section> -->
 @endsection

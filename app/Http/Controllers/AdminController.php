@@ -14,6 +14,7 @@ use App\City;
 use App\Province;
 use App\Ward;
 use App\Shipping;
+use App\Statistical;
 
 class AdminController extends Controller
 {
@@ -67,7 +68,7 @@ class AdminController extends Controller
     		Session::put('message','Sai tài khoản hoặc mật khẩu!');
     		return Redirect::to('/admin');
     	}
-    	
+
     }
     public function all_user(){
         $this ->AuthLogin();
@@ -83,5 +84,21 @@ class AdminController extends Controller
     	Session::put('admin_name',null);
     	Session::put('admin_id',null);
     	return Redirect::to('/admin');
+    }
+    public function filter_by_date(Request $request){
+        $data = $request->all();
+        $dateFrom = $data['dateFrom'];
+        $dateTo = $data['dateTo'];
+        $stats = Statistical::whereBetween('order_date',[$dateFrom,$dateTo])->orderby('order_date','asc')->get();
+        foreach($stats as $stat){
+            $chart_data[] = array(
+                'period' => $stat->order_date,
+                'order' => $stat->total_order,
+                'sales' => $stat->sales,
+                'profit' => $stat->profit,
+                'quantity' => $stat->quantity
+            );
+        }
+        echo $data = json_encode($chart_data);
     }
 }

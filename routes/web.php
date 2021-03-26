@@ -36,6 +36,7 @@ Route::get('/product-details/{product_id}','ProductController@details_product');
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@dashboard');
+Route::post('/filter-by-date','AdminController@filter_by_date');
 Route::get('/logout','AdminController@logout');
 Route::get('/all-user','AdminController@all_user');
 
