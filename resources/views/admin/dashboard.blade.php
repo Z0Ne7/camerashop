@@ -103,7 +103,7 @@
             <div class="col-md-4 agile-last-left">
                 <div class="agile-last-grid">
                     <div class="area-grids-heading">
-                        <h3>Monthly</h3>
+                        <h3>Tuần này</h3>
                     </div>
                     <div id="graph7"></div>
                     <script>
@@ -142,7 +142,7 @@
             <div class="col-md-4 agile-last-left agile-last-middle">
                 <div class="agile-last-grid">
                     <div class="area-grids-heading">
-                        <h3>Daily</h3>
+                        <h3>Tháng này</h3>
                     </div>
                     <div id="graph8"></div>
                     <script>
@@ -212,7 +212,7 @@
             <div class="col-md-4 agile-last-left agile-last-right">
                 <div class="agile-last-grid">
                     <div class="area-grids-heading">
-                        <h3>Yearly</h3>
+                        <h3>Tổng</h3>
                     </div>
                     <div id="graph9"></div>
                     <script>

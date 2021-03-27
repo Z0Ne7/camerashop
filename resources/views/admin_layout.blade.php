@@ -432,9 +432,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             })
         });
-        var chart = new Morris.Bar({
+        var chart = new Morris.Line({
             element: 'chart1',
             barColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
+            lineColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
             parseTime: false,
             hideHover: 'auto',
             data: [],
