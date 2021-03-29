@@ -10,8 +10,8 @@
                         <i class="fa fa-usd"> </i>
                     </div>
                     <div class="col-md-8 market-update-left">
-                        <h4>Tổng số tiền thu về</h4>
-                        <h3>{{number_format($total,'0',',','.').'Đ'}}</h3>
+                        <h4>Tổng số tiền</h4>
+                        <h3 style="margin-left: -25px;">{{number_format($total,'0',',','.').'Đ'}}</h3>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -34,7 +34,7 @@
                         <i class="fa fa-users"></i>
                     </div>
                     <div class="col-md-8 market-update-left">
-                        <h4>Người dùng đăng kí</h4>
+                        <h4>Người dùng</h4>
                         <h3>{{$count_user}}</h3>
                     </div>
                     <div class="clearfix"> </div>
