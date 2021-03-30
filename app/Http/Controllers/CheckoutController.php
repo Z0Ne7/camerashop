@@ -17,6 +17,7 @@ use App\Product;
 use App\Order;
 use App\OrderDetails;
 use App\Shipping;
+use App\Statistical;
 
 class CheckoutController extends Controller
 {
@@ -123,7 +124,19 @@ class CheckoutController extends Controller
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $data = $request->all();
         $checkout_code = substr(md5(microtime()), rand(0, 26), 8);
-
+        $timeOrder = date_format(now(), "Y-m-d");
+        $stats = Statistical::where('order_date', $timeOrder)->first();
+        if ($stats) {
+            $totalOrders = $stats->total_order;
+            $stats->update(['total_order' => $totalOrders + 1]);
+        } else {
+            $newStats = new Statistical;
+            $newStats->order_date = $timeOrder;
+            $newStats->sales = 0;
+            $newStats->quantity = 0;
+            $newStats->total_order = 1;
+            $newStats->save();
+        }
         $Orders->order_payment = $data['shipping_payment'];
         $Orders->order_shipping_name = $data['shipping_name'];
         $Orders->order_shipping_phone = $data['shipping_phone'];
@@ -136,7 +149,7 @@ class CheckoutController extends Controller
         $Orders->customer_id = Session::get('customer_id');
         $Orders->order_status = 1;
         $Orders->order_code = $checkout_code;
-        $Orders->created_at = now();
+        $Orders->created_at = $timeOrder;
         $Orders->save();
         if (Session::get('cart')) {
             foreach (Session::get('cart') as $cart) {

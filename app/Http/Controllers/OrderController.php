@@ -14,6 +14,7 @@ use App\City;
 use App\Province;
 use App\Ward;
 use App\Product;
+use App\Statistical;
 use PDF;
 use Session;
 
@@ -109,59 +110,34 @@ class OrderController extends Controller
     }
     public function complete_order($order_code)
     {
-        $order_cod = Order::where('order_code', $order_code)->first();
+        $order = Order::where('order_code', $order_code)->first();
         $order_details = OrderDetails::where('order_code', $order_code)->get();
         $products = Product::orderby('product_id', 'asc')->get();
-        if ($order_cod->order_status == 0 || $order_cod->order_status == 5) {
+        $newStats = new Statistical;
+
+        $stats = Statistical::where('order_date', $order->created_at)->first();
+        if ($order->order_status == 0 || $order->order_status == 5) {
             return redirect()->back()->with('errmsg', 'Đơn hàng đã bị hủy');
-        } elseif ($order_cod->order_status == 1) {
-            $order_cod->update(['order_status' => 4]);
-            // foreach($order_details as $key => $details){
-            //     foreach($products as $key2 => $pro){
-            //         if($pro->product_id==$details->product_id){
-            //             $new_stock=$pro->product_stock - $details->product_sale_quantity;
-            //             if($new_stock<0){
-            //                 $new_stock=0;
-            //             }
-            //             if($pro->product_sold==NULL){
-            //                 $pro->update(['product_stock'=> $new_stock, 'product_sold' => $details->product_sale_quantity]);
-            //             }else{
-            //                 $sold = $pro->product_sold+$details->product_sale_quantity;
-            //                 $pro->update(['product_stock'=> $new_stock, 'product_sold' => $sold]);
-            //             }
-            //         }
-            //     }
-            // }
-            return redirect()->back()->with('message', 'Đã hoàn thành đơn hàng');
-        } elseif ($order_cod->order_status == 2) {
-            $order_cod->update(['order_status' => 4]);
-            foreach ($order_details as $key => $details) {
-                foreach ($products as $key2 => $pro) {
-                    if ($pro->product_id == $details->product_id) {
-                        $new_stock = $pro->product_stock - $details->product_sale_quantity;
-                        if ($new_stock < 0) {
-                            $new_stock = 0;
-                        }
-                        $pro->update(['product_stock' => $new_stock]);
-                    }
-                }
-            }
-            return redirect()->back()->with('message', 'Đã hoàn thành đơn hàng');
-        } elseif ($order_cod->order_status == 4) {
+        } elseif ($order->order_status == 4) {
             return redirect()->back()->with('errmsg', 'Đơn hàng đã hoàn thành');
-        } elseif ($order_cod->order_status == 3) {
-            $order_cod->update(['order_status' => 4]);
-            foreach ($order_details as $key => $details) {
-                foreach ($products as $key2 => $pro) {
-                    if ($pro->product_id == $details->product_id) {
-                        $new_stock = $pro->product_stock - $details->product_sale_quantity;
-                        if ($new_stock < 0) {
-                            $new_stock = 0;
-                        }
-                        $pro->update(['product_stock' => $new_stock]);
-                    }
-                }
+        } elseif ($order->order_status == 1 || $order->order_status == 2 || $order->order_status == 3) {
+            $timeOrder = date_format(now(), "Y-m-d");
+            $stats = Statistical::where('order_date', $timeOrder)->first();
+            $totalProducts = 0;
+            $totalPrices = 0;
+            foreach ($order_details as $order_detail) {
+                $totalProducts = $totalProducts + $order_detail->product_sale_quantity;
+                $totalPrices = $totalPrices + $order_detail->product_price;
             }
+            if ($stats) {
+                $countOrders = Order::where('created_at', $order->created_at)->count();
+                dd($countOrders);
+            }
+            // $order->update(['order_status' => 4]);
+            // foreach($stats as $stat){
+            //     if($stat->order_date)
+            // }
+            dd($stats);
             return redirect()->back()->with('message', 'Đã hoàn thành đơn hàng');
         } else {
             return redirect()->back();
