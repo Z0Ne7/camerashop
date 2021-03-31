@@ -121,23 +121,19 @@ class OrderController extends Controller
         } elseif ($order->order_status == 4) {
             return redirect()->back()->with('errmsg', 'Đơn hàng đã hoàn thành');
         } elseif ($order->order_status == 1 || $order->order_status == 2 || $order->order_status == 3) {
-            $timeOrder = date_format(now(), "Y-m-d");
-            $stats = Statistical::where('order_date', $timeOrder)->first();
-            $totalProducts = 0;
-            $totalPrices = 0;
-            foreach ($order_details as $order_detail) {
-                $totalProducts = $totalProducts + $order_detail->product_sale_quantity;
-                $totalPrices = $totalPrices + $order_detail->product_price;
-            }
-            if ($stats) {
-                $countOrders = Order::where('created_at', $order->created_at)->count();
-                dd($countOrders);
-            }
-            // $order->update(['order_status' => 4]);
-            // foreach($stats as $stat){
-            //     if($stat->order_date)
+            // $timeOrder = date_format(now(), "Y-m-d");
+            // $stats = Statistical::where('order_date', $timeOrder)->first();
+            // $totalProducts = 0;
+            // $totalPrices = 0;
+            // foreach ($order_details as $order_detail) {
+            //     $totalProducts = $totalProducts + $order_detail->product_sale_quantity;
+            //     $totalPrices = $totalPrices + $order_detail->product_price;
             // }
-            dd($stats);
+            // if ($stats) {
+            //     $countOrders = Order::where('created_at', $order->created_at)->count();
+            //     dd($countOrders);
+            // }
+            $order->update(['order_status' => 4]);
             return redirect()->back()->with('message', 'Đã hoàn thành đơn hàng');
         } else {
             return redirect()->back();

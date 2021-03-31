@@ -126,17 +126,9 @@ class CheckoutController extends Controller
         $checkout_code = substr(md5(microtime()), rand(0, 26), 8);
         $timeOrder = date_format(now(), "Y-m-d");
         $stats = Statistical::where('order_date', $timeOrder)->first();
-        if ($stats) {
-            $totalOrders = $stats->total_order;
-            $stats->update(['total_order' => $totalOrders + 1]);
-        } else {
-            $newStats = new Statistical;
-            $newStats->order_date = $timeOrder;
-            $newStats->sales = 0;
-            $newStats->quantity = 0;
-            $newStats->total_order = 1;
-            $newStats->save();
-        }
+        $totalProductsCart = 0;
+        $totalPricesCart = 0;
+
         $Orders->order_payment = $data['shipping_payment'];
         $Orders->order_shipping_name = $data['shipping_name'];
         $Orders->order_shipping_phone = $data['shipping_phone'];
@@ -153,6 +145,8 @@ class CheckoutController extends Controller
         $Orders->save();
         if (Session::get('cart')) {
             foreach (Session::get('cart') as $cart) {
+                $totalPricesCart = $totalPricesCart + ($cart['product_price'] * $cart['product_qty']);
+                $totalProductsCart = $totalProductsCart + $cart['product_qty'];
                 $Products = Product::where('product_id', $cart['product_id'])->first();
                 $new_stock = $Products->product_stock - $cart['product_qty'];
                 if ($new_stock < 0) {
@@ -171,6 +165,19 @@ class CheckoutController extends Controller
                 $OrderDetails->product_sale_quantity = $cart['product_qty'];
                 $OrderDetails->save();
             }
+        }
+        if ($stats) {
+            $totalOrders = $stats->total_order;
+            $totalProducts = $stats->quantity;
+            $totalPrices = $stats->sales;
+            $stats->update(['total_order' => $totalOrders + 1, 'sales' => $totalPrices + $totalPricesCart, 'quantity' => $totalProducts + $totalProductsCart]);
+        } else {
+            $newStats = new Statistical;
+            $newStats->order_date = $timeOrder;
+            $newStats->sales = $totalPricesCart;
+            $newStats->quantity = $totalProductsCart;
+            $newStats->total_order = 1;
+            $newStats->save();
         }
         Session::forget('coupon');
         Session::forget('fee');
