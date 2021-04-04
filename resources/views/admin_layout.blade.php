@@ -384,17 +384,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
         });
-        function getStatsOnLoad (){
+
+        function getStatsOnLoad() {
             var _token = $("input[name='_token']").val();
             $.ajax({
                 url: "{{url('/get-stats-on-load')}}",
                 method: "POST",
                 dataType: "JSON",
                 data: {
-                    _token:_token,
+                    _token: _token,
                 },
                 success: function(data) {
                     chart.setData(data);
+                    chart2.setData(data);
                 }
             })
         }
@@ -411,6 +413,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 },
                 success: function(data) {
                     chart.setData(data);
+                    chart2.setData(data);
                 }
             })
         })
@@ -429,10 +432,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 },
                 success: function(data) {
                     chart.setData(data);
+                    chart2.setData(data);
                 }
             })
         });
-        var chart = new Morris.Line({
+        var chart = Morris.Area({
             element: 'chart1',
             barColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
             lineColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
@@ -442,6 +446,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             xkey: 'period',
             ykeys: ['order', 'sales', 'quantity'],
             labels: ['Đơn hàng', 'Doanh số', 'Số lượng']
+        });
+        var chart2 = Morris.Area({
+            element: 'chart2',
+            parseTime: false,
+            data: [],
+            xkey: 'period',
+            ykeys: ['order'],
+            labels: ['Đơn hàng']
         });
     </script>
     <!-- calendar -->
