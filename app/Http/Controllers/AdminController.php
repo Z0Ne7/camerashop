@@ -17,6 +17,7 @@ use App\Province;
 use App\Ward;
 use App\Shipping;
 use App\Statistical;
+use App\Product;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -170,5 +171,17 @@ class AdminController extends Controller
             ]);
         }
         return json_encode($chart_data);
+    }
+
+    public function getBestSoldProductOnLoad(){
+        $best_sold_product = [];
+        $Products = Product::orderby('product_sold','desc')->limit(15)->get();
+        foreach($Products as $index => $Product){
+            array_push($best_sold_product, [
+                'period' => $Product->product_name,
+                'quantity' => $Product->product_sold
+            ]);
+        }
+        return json_encode($best_sold_product);
     }
 }

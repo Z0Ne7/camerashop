@@ -71,7 +71,7 @@
                 <div class="col-md-2 float-right">
                     <p>Thời gian:
                         <select class="dashboard-filter form-control">
-                            <option value="lastWeek">Tuần qua</option>
+                            <option value="lastWeek">7 ngày gần đây</option>
                             <option value="lastMonth">Tháng trước</option>
                             <option value="thisMonth">Tháng này</option>
                             <option value="lastYear" selected>Năm qua</option>
@@ -112,71 +112,9 @@
         <div class="col-md-6 agile-last-left agile-last-middle">
             <div class="agile-last-grid">
                 <div class="area-grids-heading">
-                    <h3>Thống kê sản phẩm</h3>
+                    <h3>Thống kê sản phẩm bán chạy</h3>
                 </div>
-                <div id="graph8"></div>
-                <script>
-                    /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-                    var day_data = [{
-                            "period": "2016-10-01",
-                            "licensed": 3407,
-                            "sorned": 660
-                        },
-                        {
-                            "period": "2016-09-30",
-                            "licensed": 3351,
-                            "sorned": 629
-                        },
-                        {
-                            "period": "2016-09-29",
-                            "licensed": 3269,
-                            "sorned": 618
-                        },
-                        {
-                            "period": "2016-09-20",
-                            "licensed": 3246,
-                            "sorned": 661
-                        },
-                        {
-                            "period": "2016-09-19",
-                            "licensed": 3257,
-                            "sorned": 667
-                        },
-                        {
-                            "period": "2016-09-18",
-                            "licensed": 3248,
-                            "sorned": 627
-                        },
-                        {
-                            "period": "2016-09-17",
-                            "licensed": 3171,
-                            "sorned": 660
-                        },
-                        {
-                            "period": "2016-09-16",
-                            "licensed": 3171,
-                            "sorned": 676
-                        },
-                        {
-                            "period": "2016-09-15",
-                            "licensed": 3201,
-                            "sorned": 656
-                        },
-                        {
-                            "period": "2016-09-10",
-                            "licensed": 3215,
-                            "sorned": 622
-                        }
-                    ];
-                    Morris.Bar({
-                        element: 'graph8',
-                        data: day_data,
-                        xkey: 'period',
-                        ykeys: ['licensed', 'sorned'],
-                        labels: ['Licensed', 'SORN'],
-                        xLabelAngle: 60
-                    });
-                </script>
+                <div id="chart3"></div>
             </div>
         </div>
         <div class="clearfix"> </div>

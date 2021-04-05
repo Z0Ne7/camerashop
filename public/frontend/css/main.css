@@ -3069,3 +3069,11 @@ i.out-stock {
     text-align: center;
     width: 50px;
   }
+
+b.discount-value {
+    font-size: 22px;
+    display: inline-block;
+    color: #d0021b;
+    margin-left: 8px;
+    font-weight: 400;
+}

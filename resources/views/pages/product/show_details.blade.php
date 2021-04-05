@@ -46,7 +46,7 @@
                 <input type="hidden" value="{{$product_discount_price}}" class="cart_product_price_{{$value->product_id}}">
                 <input type="hidden" value="{{$value->product_stock}}" class="cart_product_stock_{{$value->product_id}}">
                 <span>
-                    <p class="origin-price">{{number_format($value->product_price,'0',',','.').' '.'Đ'}}</p>
+                    <p class="origin-price">{{number_format($value->product_price,'0',',','.').' '.'Đ'}} <b class="discount-value">-{{$value->product_discount}}%</b></p>
                     <span class="discount-price">{{number_format($product_discount_price,'0',',','.').' '.'Đ'}}</span>
                 </span>
                 <br>

@@ -287,7 +287,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </script>
     <script>
         $(document).ready(function() {
-            getStatsOnLoad()
+            getStatsOnLoad();
+            getBestSoldProductOnLoad();
             //BOX BUTTON SHOW AND CLOSE
             jQuery('.small-graph-box').hover(function() {
                 jQuery(this).find('.box-button').fadeIn('fast');
@@ -400,6 +401,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 }
             })
         }
+        function getBestSoldProductOnLoad() {
+            var _token = $("input[name='_token']").val();
+            $.ajax({
+                url: "{{url('/get-best-product-on-load')}}",
+                method: "POST",
+                dataType: "JSON",
+                data: {
+                    _token: _token,
+                },
+                success: function(data) {
+                    chart3.setData(data);
+                }
+            })
+        }
         $(".dashboard-filter").change(function() {
             var dashboardValue = $(this).val();
             var _token = $("input[name='_token']").val();
@@ -448,12 +463,72 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             labels: ['Đơn hàng', 'Doanh số', 'Số lượng']
         });
         var chart2 = Morris.Area({
+            lineColors: ['#00acee', '#ff8040', '#eeae02', '#c8e9b8'],
             element: 'chart2',
             parseTime: false,
             data: [],
             xkey: 'period',
             ykeys: ['order'],
             labels: ['Đơn hàng']
+        });
+        // var day_data = [{
+        //         "period": "2016-10-01",
+        //         "licensed": 3407,
+        //         "sorned": 660
+        //     },
+        //     {
+        //         "period": "2016-09-30",
+        //         "licensed": 3351,
+        //         "sorned": 629
+        //     },
+        //     {
+        //         "period": "2016-09-29",
+        //         "licensed": 3269,
+        //         "sorned": 618
+        //     },
+        //     {
+        //         "period": "2016-09-20",
+        //         "licensed": 3246,
+        //         "sorned": 661
+        //     },
+        //     {
+        //         "period": "2016-09-19",
+        //         "licensed": 3257,
+        //         "sorned": 667
+        //     },
+        //     {
+        //         "period": "2016-09-18",
+        //         "licensed": 3248,
+        //         "sorned": 627
+        //     },
+        //     {
+        //         "period": "2016-09-17",
+        //         "licensed": 3171,
+        //         "sorned": 660
+        //     },
+        //     {
+        //         "period": "2016-09-16",
+        //         "licensed": 3171,
+        //         "sorned": 676
+        //     },
+        //     {
+        //         "period": "2016-09-15",
+        //         "licensed": 3201,
+        //         "sorned": 656
+        //     },
+        //     {
+        //         "period": "2016-09-10",
+        //         "licensed": 3215,
+        //         "sorned": 622
+        //     }
+        // ];
+        var chart3 = Morris.Bar({
+            element: 'chart3',
+            data: [],
+            xkey: 'period',
+            ykeys: ['quantity'],
+            labels: ['Sản phẩm đã bán'],
+            xLabelAngle: 60
         });
     </script>
     <!-- calendar -->
